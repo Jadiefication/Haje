@@ -1,6 +1,6 @@
 use crate::complex::Complex;
 use crate::vec2::Vec2;
-use std::{f64, panic};
+use std::f64;
 
 const MASS: f64 = 9.11e-31;
 const PLANCK: f64 = 1.054e-34;
