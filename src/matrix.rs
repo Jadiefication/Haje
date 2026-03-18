@@ -110,7 +110,7 @@ where
     type Output = Matrix<N, ROWS, K>;
 
     fn mul(self, rhs: Matrix<N, COLS, K>) -> Self::Output {
-        let mut result = Matrix::from_fn(|i, j| N::default());
+        let mut result = Matrix::from_fn(|_, _| N::default());
 
         for i in 0..ROWS {
             for j in 0..K {

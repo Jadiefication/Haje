@@ -1,9 +1,9 @@
 use crate::complex::Complex;
-use crate::vec2::Vec2;
-use std::f64;
-use std::ops::{Div, Index};
 use crate::reals::RealField;
+use crate::vec2::Vec2;
 use crate::vec3::Vec3;
+use std::f64;
+use std::ops::Div;
 
 const MASS: f64 = 9.11e-31;
 const PLANCK: f64 = 1.054e-34;
@@ -57,11 +57,10 @@ fn pot_energy_fn<T: RealField>(pos: Vec3<T>) -> T where f32: Div<T, Output = T> 
     2.0f32.exp() / pos.magnitude()
 }
 
-pub fn update(grid: &mut Vec<Vec<Complex>>, t: f64, d_t: f64) {
+pub fn update(grid: &mut Vec<Vec<Complex>>, d_t: f64) {
     let rows = grid.len();
     let cols = if rows > 0 { grid[0].len() } else { 0 };
     for x in 0..rows {
-        let vec = &grid[x];
         for y in 0..cols {
             let complex = grid[x][y];
             let energy = pot_energy_fn(Vec3 { x: x as f32, y: y as f32, z: 0.0 });
