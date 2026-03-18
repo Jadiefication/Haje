@@ -15,8 +15,8 @@
 - [x] Verify norm preservation for initial ψ. Verify the probability.
 
 ## Phase 2 — Time Evolution
-- [ ] Implement basic explicit time-stepping for ψ(t+Δt). Done through the schrodinger's(Computing the time derivative in the 1D SE, by doing that we get the change over time).
-- [ ] Optionally implement Crank–Nicolson for stability.
+- [x] Implement basic explicit time-stepping for ψ(t+Δt). Done through the schrodinger's(Computing the time derivative in the 1D SE, by doing that we get the change over time).
+- [x] Optionally implement Crank–Nicolson for stability. (Used an approximation)
 - [ ] Ensure unitary-like evolution: norm of ψ should remain ~1.
 - [ ] Test with simple potentials (harmonic oscillator).
 
