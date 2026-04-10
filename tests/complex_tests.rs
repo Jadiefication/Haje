@@ -1,4 +1,4 @@
-use Atom::complex::Complex;
+use haje::complex::Complex;
 
 #[test]
 fn test_complex_add() {

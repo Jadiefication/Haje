@@ -1,4 +1,4 @@
-use Atom::matrix::Matrix;
+use haje::matrix::Matrix;
 
 #[test]
 fn test_matrix_add() {

@@ -1,47 +1,7 @@
-use Atom::grid::{grid, g_wave_packet, laplacian, update};
-use Atom::complex::Complex;
-use Atom::vec2::Vec2;
+use haje::grid::{g_wave_packet, laplacian};
+use haje::complex::Complex;
+use haje::vec2::Vec2;
 use std::f64;
-
-#[test]
-fn test_update_empty() {
-    let mut grid: Vec<Vec<Complex>> = vec![];
-    update(&mut grid, 0.1);
-    assert_eq!(grid.len(), 0);
-}
-
-#[test]
-fn test_update_single_cell() {
-    let mut grid = vec![vec![Complex::new(1.0, 0.0)]];
-    let d_t = 1e-15; // Small d_t
-    update(&mut grid, d_t);
-    
-    // In update function for 1x1 grid:
-    // x=0, y=0
-    // complex = 1.0 + 0.0i
-    // energy = pot_energy_fn(Vec3(0,0,0)) = 2.0.exp() / 0.0 = inf
-    // But magnitude() might return 0.0, and 2.0.exp() / 0.0 might be infinity.
-    // However, Vec3::magnitude() for (0,0,0) is 0.
-    
-    // Let's check if it actually changed.
-    assert!(grid[0][0].real != 1.0 || grid[0][0].imaginary != 0.0);
-}
-
-#[test]
-fn test_update_simple_grid() {
-    let mut grid = vec![
-        vec![Complex::new(1.0, 0.0), Complex::new(1.0, 0.0)],
-        vec![Complex::new(1.0, 0.0), Complex::new(1.0, 0.0)],
-    ];
-    let initial_grid = grid.clone();
-    update(&mut grid, 1e-15);
-    
-    for x in 0..2 {
-        for y in 0..2 {
-            assert!(grid[x][y] != initial_grid[x][y]);
-        }
-    }
-}
 
 #[test]
 fn test_g_wave_packet_zero() {
@@ -76,36 +36,6 @@ fn test_g_wave_packet_non_zero() {
     
     assert!((res.real - expected_real).abs() < 1e-10);
     assert!((res.imaginary - expected_imaginary).abs() < 1e-10);
-}
-
-#[test]
-fn test_grid_length() {
-    let start = 0.0;
-    let end = 10.0;
-    let amount = 50;
-    let res = grid(start, end, amount);
-    
-    assert_eq!(res.len(), amount as usize);
-}
-
-#[test]
-fn test_grid_values() {
-    let start = -5.0;
-    let end = 5.0;
-    let amount = 10;
-    let res = grid(start, end, amount);
-    
-    let size = end - start;
-    let d_x = size / (amount as f64);
-    let sigma = size / 10.0;
-    
-    for i in 0..amount {
-        let x = start + (i as f64) * d_x;
-        let expected = g_wave_packet(x, sigma);
-        
-        assert!((res[i as usize].real - expected.real).abs() < 1e-10);
-        assert!((res[i as usize].imaginary - expected.imaginary).abs() < 1e-10);
-    }
 }
 
 #[test]

@@ -1,6 +1,6 @@
-use Atom::vec2::Vec2;
-use Atom::vec3::Vec3;
-use Atom::vec4::Vec4;
+use haje::vec2::Vec2;
+use haje::vec3::Vec3;
+use haje::vec4::Vec4;
 
 #[test]
 fn test_vec2_operations() {
