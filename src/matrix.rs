@@ -104,8 +104,8 @@ where
 impl<T, N, const ROWS: usize, const COLS: usize, const K: usize>
 Mul<Matrix<N, COLS, K>> for Matrix<T, ROWS, COLS>
 where
-    for<'a> &'a T: Mul<&'a N, Output = N> ,
-    N: Add<Output = N> + Default,
+    for<'a> &'a T: Mul<&'a N, Output = N>,
+    N: Add<Output = N> + Default + Copy,
 {
     type Output = Matrix<N, ROWS, K>;
 
@@ -113,12 +113,12 @@ where
         let mut result = Matrix::from_fn(|_, _| N::default());
 
         for i in 0..ROWS {
-            for j in 0..K {
-                let mut sum = N::default();
-                for k in 0..COLS {
-                    sum = sum + &self.data[i][k] * &rhs.data[k][j];
+            for k in 0..COLS {
+                let factor = &self.data[i][k];
+                for j in 0..K {
+                    // Both rhs.data[k][j] and result.data[i][j] are accessed linearly!
+                    result.data[i][j] = result.data[i][j] + factor * &rhs.data[k][j];
                 }
-                result.data[i][j] = sum;
             }
         }
 
