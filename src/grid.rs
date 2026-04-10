@@ -1,5 +1,4 @@
 use crate::complex::Complex;
-use crate::reals::RealField;
 use crate::vec2::Vec2;
 use std::f64;
 
