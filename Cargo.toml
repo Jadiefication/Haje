@@ -2,5 +2,12 @@
 name = "haje"
 version = "0.1.0"
 edition = "2024"
+authors = ["Jadie <jadeczjade008@gmail.com>"]
+description = "A linear algebra library, developed by yours truly, and probably not that efficient."
+license = "MIT" # Use standard SPDX identifiers
+repository = "https://github.com/Jadiefication/Haje"
+readme = "README.md"
+keywords = ["linear-algebra", "matrix", "simulation"]
+categories = ["science", "mathematics"]
 
 [dependencies]
