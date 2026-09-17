@@ -41,5 +41,6 @@ pub mod matrix;
 mod priv_gpu;
 /// Quantum gates and qubit state utilities.
 pub mod quantum;
+mod sqrt;
 /// Vector types (`Vec2`, `Vec3`, `Vec4`).
 pub mod vec;

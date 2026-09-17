@@ -1,12 +1,12 @@
 use std::ops::{Add, Div, Mul, Sub};
 
-use num_traits::real::Real;
+use crate::sqrt::Sqrt;
 
 /// A three-dimensional vector.
 ///
 /// Suitable for geometry and physics-style operations in Cartesian space.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Ord, PartialOrd, Hash, Default)]
-pub struct Vec3<T: Real> {
+pub struct Vec3<T> {
     /// X component.
     pub x: T,
     /// Y component.
@@ -15,7 +15,10 @@ pub struct Vec3<T: Real> {
     pub z: T,
 }
 
-impl<T: Real> Vec3<T> {
+impl<T> Vec3<T>
+where
+    T: Mul<Output = T> + Add<Output = T> + Sqrt + Div<Output = T> + Copy + Sub<Output = T>,
+{
     /// Returns the dot product of `self` and `other`.
     pub fn dot(&self, other: Self) -> T {
         self.x * other.x + self.y * other.y + self.z * other.z
@@ -43,7 +46,10 @@ impl<T: Real> Vec3<T> {
     }
 }
 
-impl<T: Real> Add for Vec3<T> {
+impl<T> Add for Vec3<T>
+where
+    T: Add<Output = T>,
+{
     type Output = Self;
 
     fn add(self, rhs: Self) -> Self {
@@ -51,7 +57,10 @@ impl<T: Real> Add for Vec3<T> {
     }
 }
 
-impl<T: Real> Sub for Vec3<T> {
+impl<T> Sub for Vec3<T>
+where
+    T: Sub<Output = T>,
+{
     type Output = Self;
 
     fn sub(self, rhs: Self) -> Self {
@@ -59,7 +68,10 @@ impl<T: Real> Sub for Vec3<T> {
     }
 }
 
-impl<T: Real> Mul<T> for Vec3<T> {
+impl<T> Mul<T> for Vec3<T>
+where
+    T: Mul<Output = T> + Copy,
+{
     type Output = Self;
 
     fn mul(self, rhs: T) -> Self {
@@ -67,7 +79,10 @@ impl<T: Real> Mul<T> for Vec3<T> {
     }
 }
 
-impl<T: Real> Div<T> for Vec3<T> {
+impl<T> Div<T> for Vec3<T>
+where
+    T: Div<Output = T> + Copy,
+{
     type Output = Self;
 
     fn div(self, rhs: T) -> Self {

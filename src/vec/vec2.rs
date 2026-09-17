@@ -1,19 +1,22 @@
 use std::ops::{Add, Div, Mul, Sub};
 
-use num_traits::real::Real;
+use crate::sqrt::Sqrt;
 
 /// A two-dimensional vector.
 ///
 /// `Vec2<T>` is generic over scalar type `T`, typically `f32` or `f64`.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Ord, PartialOrd, Hash, Default)]
-pub struct Vec2<T: Real> {
+pub struct Vec2<T> {
     /// X component.
     pub x: T,
     /// Y component.
     pub y: T,
 }
 
-impl<T: Real> Vec2<T> {
+impl<T> Vec2<T>
+where
+    T: Mul<Output = T> + Add<Output = T> + Sqrt + Div<Output = T> + Copy,
+{
     /// Returns the dot product of `self` and `other`.
     ///
     /// In coordinates: `x1*x2 + y1*y2`.
@@ -34,7 +37,10 @@ impl<T: Real> Vec2<T> {
     }
 }
 
-impl<T: Real> Add for Vec2<T> {
+impl<T> Add for Vec2<T>
+where
+    T: Add<T, Output = T>,
+{
     type Output = Self;
 
     fn add(self, rhs: Self) -> Self {
@@ -42,7 +48,10 @@ impl<T: Real> Add for Vec2<T> {
     }
 }
 
-impl<T: Real> Sub for Vec2<T> {
+impl<T> Sub for Vec2<T>
+where
+    T: Sub<T, Output = T>,
+{
     type Output = Self;
 
     fn sub(self, rhs: Self) -> Self {
@@ -50,7 +59,10 @@ impl<T: Real> Sub for Vec2<T> {
     }
 }
 
-impl<T: Real> Mul<T> for Vec2<T> {
+impl<T> Mul<T> for Vec2<T>
+where
+    T: Mul<T, Output = T> + Copy,
+{
     type Output = Self;
 
     fn mul(self, rhs: T) -> Self {
@@ -58,7 +70,10 @@ impl<T: Real> Mul<T> for Vec2<T> {
     }
 }
 
-impl<T: Real> Div<T> for Vec2<T> {
+impl<T> Div<T> for Vec2<T>
+where
+    T: Div<T, Output = T> + Copy,
+{
     type Output = Self;
 
     fn div(self, rhs: T) -> Self {

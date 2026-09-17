@@ -7,8 +7,8 @@ fn test_matrix_add() {
     let m3: Matrix<f64, 2, 2> = m1 + m2;
 
     for i in 0..2 {
-        for j in 0..2 {
-            assert_eq!(m3[i][j], 3.0);
+        for &item in &m3[i] {
+            assert_eq!(item, 3.0);
         }
     }
 }
